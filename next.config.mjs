@@ -9,6 +9,10 @@ const nextConfig = {
   turbopack: {
     root: __dirname,
   },
+  // Dynamic import + large .br binaries are not traced by default; Vercel would miss `bin/` and Chromium fails to start.
+  outputFileTracingIncludes: {
+    "/api/export-pdf": ["./node_modules/@sparticuz/chromium/**/*"],
+  },
   // Puppeteer + Firebase Admin must not be bundled; otherwise the route module can load without HTTP handlers.
   serverExternalPackages: [
     "puppeteer",

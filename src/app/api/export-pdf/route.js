@@ -1,13 +1,50 @@
 import { FieldValue } from "firebase-admin/firestore";
 import { BLUEPRINT_HTML_COLLECTION, getFirestore, getStorageBucket } from "@/lib/firebaseAdmin";
+import { launchBrowserForPdf } from "@/lib/launchBrowserForPdf";
 import { sendTransactionalEmail } from "@/lib/sendEmail";
 
 export const runtime = "nodejs";
+
+/** Vercel Hobby max is 10s; Pro allows up to 300s — raise in dashboard if PDFs are slow. */
+export const maxDuration = 60;
 
 /** Customer.io counts attachment payload; base64 expands ~4/3 — keep encoded size under 2 MiB. */
 const MAX_ATTACHMENT_B64_CHARS = 2 * 1024 * 1024 - 4096;
 const MAX_RECIPIENTS = 20;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const PAGE_RENDER_TIMEOUT_MS = 45000;
+
+/** Wait for images, optional fonts, and layout so PDFs aren’t generated mid-load or mid-paint. */
+async function preparePageForPdfExport(page) {
+  await page.evaluate(async () => {
+    const scrollH = Math.max(
+      document.body?.scrollHeight ?? 0,
+      document.documentElement?.scrollHeight ?? 0,
+    );
+    window.scrollTo(0, scrollH);
+    await new Promise((r) => setTimeout(r, 200));
+    window.scrollTo(0, 0);
+
+    const waitImg = (img) =>
+      new Promise((resolve) => {
+        if (img.complete && img.naturalWidth !== 0) return resolve();
+        const done = () => resolve();
+        img.addEventListener("load", done, { once: true });
+        img.addEventListener("error", done, { once: true });
+        setTimeout(done, 15000);
+      });
+
+    await Promise.all([...document.images].map(waitImg));
+
+    try {
+      if (document.fonts?.ready) await document.fonts.ready;
+    } catch {
+      /* ignore */
+    }
+
+    await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+  });
+}
 
 function parseRecipients(body) {
   const raw = body?.recipients ?? body?.emails ?? [];
@@ -94,7 +131,6 @@ function sanitizePathSegment(id) {
 }
 
 export async function POST(request) {
-  const { default: puppeteer } = await import("puppeteer");
   let browser;
   try {
     const body = await request.json();
@@ -120,15 +156,22 @@ export async function POST(request) {
       }
     }
 
-    browser = await puppeteer.launch({
-      headless: true,
-      args: ["--no-sandbox", "--disable-setuid-sandbox"],
-    });
+    browser = await launchBrowserForPdf();
 
     const page = await browser.newPage();
+    await page.setViewport({ width: 1280, height: 720, deviceScaleFactor: 1 });
     await page.setContent(html, {
-      waitUntil: "networkidle0",
-      timeout: 120000,
+      waitUntil: "domcontentloaded",
+      timeout: PAGE_RENDER_TIMEOUT_MS,
+    });
+    await preparePageForPdfExport(page);
+    await page.addStyleTag({
+      content: `
+        img, picture, svg, video, canvas {
+          page-break-inside: avoid;
+          break-inside: avoid;
+        }
+      `,
     });
     await page.emulateMediaType("print");
     const pdfUint8 = await page.pdf({

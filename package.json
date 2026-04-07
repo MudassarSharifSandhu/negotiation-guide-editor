@@ -9,10 +9,11 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@sparticuz/chromium": "^143.0.4",
     "customerio-node": "^4.3.0",
     "firebase-admin": "^13.7.0",
     "next": "16.2.2",
-    "puppeteer": "^24.40.0",
+    "puppeteer-core": "^24.40.0",
     "react": "19.2.4",
     "react-dom": "19.2.4"
   },
@@ -22,6 +23,7 @@
     "@types/react-dom": "^19.2.3",
     "eslint": "^9",
     "eslint-config-next": "16.2.2",
+    "puppeteer": "^24.40.0",
     "typescript": "^6.0.2"
   }
 }

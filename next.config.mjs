@@ -12,6 +12,8 @@ const nextConfig = {
   // Puppeteer + Firebase Admin must not be bundled; otherwise the route module can load without HTTP handlers.
   serverExternalPackages: [
     "puppeteer",
+    "puppeteer-core",
+    "@sparticuz/chromium",
     "firebase-admin",
     "@google-cloud/storage",
     "customerio-node",

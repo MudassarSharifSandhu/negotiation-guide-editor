@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>Home Price Negotiation Guide - Design 5</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Mono:ital,wght@0,400;0,500;1,400&display=swap');
+
+*{margin:0;padding:0;box-sizing:border-box;}
+html{width:2480px;}
+body{font-family:'Sora',sans-serif;background:#0F0F0F;color:#E8E8E8;font-size:24pt;line-height:1.75;width:2480px;}
+@page{size:2480px 3508px;margin:0;}
+.page{width:2480px;height:3508px;position:relative;overflow:hidden;padding-bottom:150px;box-sizing:border-box;}
+.page-break{page-break-before:always;}
+.no-break{page-break-inside:avoid;break-inside:avoid;}
+
+/* GRADIENT MESH BACKGROUNDS */
+.gradient-mesh-1{
+  background:#0F0F0F;
+  background-image:
+    radial-gradient(ellipse at 0% 0%, rgba(139,92,246,0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 100% 100%, rgba(236,72,153,0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(59,130,246,0.08) 0%, transparent 60%);
+}
+.gradient-mesh-2{
+  background:#0F0F0F;
+  background-image:
+    radial-gradient(ellipse at 100% 0%, rgba(236,72,153,0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 0% 100%, rgba(139,92,246,0.12) 0%, transparent 50%);
+}
+
+/* COVER */
+.cover{padding:0;}
+.cover-nav{
+  padding:50px 120px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.cover-logo{
+  font-family:'DM Mono',monospace;
+  font-size:20pt;
+  font-weight:500;
+  color:#8B5CF6;
+  letter-spacing:0.15em;
+}
+.cover-meta{
+  font-family:'DM Mono',monospace;
+  font-size:18pt;
+  color:rgba(255,255,255,0.3);
+  letter-spacing:0.08em;
+}
+.cover-hero{
+  padding:80px 120px 100px;
+}
+.cover-badge{
+  display:inline-block;
+  background:linear-gradient(135deg, rgba(139,92,246,0.2) 0%, rgba(236,72,153,0.2) 100%);
+  border:1px solid rgba(139,92,246,0.4);
+  padding:14px 32px;
+  border-radius:100px;
+  font-family:'DM Mono',monospace;
+  font-size:18pt;
+  color:#C4B5FD;
+  letter-spacing:0.15em;
+  text-transform:uppercase;
+  margin-bottom:60px;
+}
+.cover-h1{
+  font-size:140pt;
+  font-weight:800;
+  color:#FFFFFF;
+  line-height:1.0;
+  margin-bottom:50px;
+  letter-spacing:-0.03em;
+}
+.cover-h1 span{
+  background:linear-gradient(135deg, #8B5CF6 0%, #EC4899 50%, #3B82F6 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.cover-deck{
+  font-size:32pt;
+  color:rgba(255,255,255,0.5);
+  max-width:1400px;
+  line-height:1.8;
+  font-weight:300;
+  margin-bottom:80px;
+}
+.cover-stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:40px;
+  padding:60px 0;
+  border-top:1px solid rgba(255,255,255,0.08);
+}
+.cs-item{text-align:center;}
+.cs-num{
+  font-size:72pt;
+  font-weight:800;
+  background:linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  line-height:1;
+  margin-bottom:12px;
+}
+.cs-label{
+  font-family:'DM Mono',monospace;
+  font-size:18pt;
+  color:rgba(255,255,255,0.35);
+  text-transform:uppercase;
+  letter-spacing:0.1em;
+}
+.cover-author{
+  padding:60px 120px;
+  border-top:1px solid rgba(255,255,255,0.08);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.ca-text{font-size:22pt;color:rgba(255,255,255,0.4);}
+.ca-text strong{color:#FFFFFF;}
+.ca-date{font-family:'DM Mono',monospace;font-size:18pt;color:rgba(255,255,255,0.25);}
+
+/* CHAPTER HEADER */
+.ch-header{
+  padding:100px 120px 80px;
+  border-bottom:1px solid rgba(255,255,255,0.08);
+}
+.ch-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:50px;
+}
+.ch-pill{
+  display:inline-flex;
+  align-items:center;
+  gap:16px;
+  background:linear-gradient(135deg, rgba(139,92,246,0.15) 0%, rgba(236,72,153,0.15) 100%);
+  border:1px solid rgba(139,92,246,0.3);
+  padding:12px 28px;
+  border-radius:100px;
+}
+.ch-pill-dot{
+  width:12px;height:12px;
+  background:linear-gradient(135deg, #8B5CF6, #EC4899);
+  border-radius:50%;
+}
+.ch-pill-text{
+  font-family:'DM Mono',monospace;
+  font-size:18pt;
+  color:#C4B5FD;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+}
+.ch-progress{
+  display:flex;
+  gap:10px;
+}
+.ch-dot{
+  width:14px;height:14px;
+  border-radius:50%;
+  background:rgba(255,255,255,0.1);
+}
+.ch-dot.active{
+  background:linear-gradient(135deg, #8B5CF6, #EC4899);
+}
+.ch-title{
+  font-size:90pt;
+  font-weight:800;
+  color:#FFFFFF;
+  line-height:1.1;
+  letter-spacing:-0.02em;
+  margin-bottom:30px;
+}
+.ch-title span{
+  background:linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.ch-intro{
+  font-size:28pt;
+  color:rgba(255,255,255,0.45);
+  max-width:1200px;
+  line-height:1.8;
+  font-weight:300;
+  padding-left:40px;
+  border-left:3px solid rgba(139,92,246,0.5);
+}
+
+/* CONTENT */
+.ch-content{
+  padding:80px 120px 100px;
+}
+
+/* GLASS CARDS */
+.glass-card{
+  background:linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:24px;
+  padding:50px;
+  margin-bottom:30px;
+  page-break-inside:avoid;
+}
+
+@media screen{
+  .glass-card{
+    backdrop-filter:blur(20px);
+  }
+}
+
+@media print{
+  .glass-card{
+    backdrop-filter:none;
+  }
+}
+.gc-header{
+  display:flex;
+  gap:30px;
+  align-items:flex-start;
+  margin-bottom:20px;
+}
+.gc-icon{
+  font-size:48pt;
+  flex-shrink:0;
+}
+.gc-num{
+  font-family:'DM Mono',monospace;
+  font-size:48pt;
+  font-weight:500;
+  background:linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  line-height:1;
+  min-width:80px;
+}
+.gc-title{
+  font-size:32pt;
+  font-weight:700;
+  color:#FFFFFF;
+  margin-bottom:10px;
+}
+.gc-text{
+  font-size:24pt;
+  color:rgba(255,255,255,0.55);
+  line-height:1.8;
+  padding-left:110px;
+}
+
+/* QUOTE CARD */
+.quote-card{
+  background:linear-gradient(135deg, rgba(139,92,246,0.1) 0%, rgba(236,72,153,0.1) 100%);
+  border:1px solid rgba(139,92,246,0.25);
+  border-radius:24px;
+  padding:60px;
+  margin:50px 0;
+  page-break-inside:avoid;
+}
+.qc-mark{
+  font-size:100pt;
+  background:linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  line-height:0.5;
+  margin-bottom:20px;
+}
+.qc-text{
+  font-size:36pt;
+  font-weight:500;
+  color:#FFFFFF;
+  line-height:1.5;
+  font-style:italic;
+}
+
+/* CALLOUT */
+.callout-gradient{
+  background:linear-gradient(135deg, rgba(139,92,246,0.15) 0%, rgba(236,72,153,0.15) 100%);
+  border-left:4px solid;
+  border-image:linear-gradient(180deg, #8B5CF6, #EC4899) 1;
+  padding:40px 50px;
+  margin:40px 0;
+  border-radius:0 16px 16px 0;
+  page-break-inside:avoid;
+}
+.callout-gradient-text{
+  font-size:26pt;
+  color:rgba(255,255,255,0.7);
+  line-height:1.75;
+}
+.callout-gradient-text strong{
+  color:#C4B5FD;
+  font-weight:600;
+}
+
+/* GRID */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:30px;}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:30px;}
+
+/* STEP CARDS */
+.step-card{
+  background:linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:20px;
+  padding:40px;
+  page-break-inside:avoid;
+}
+.step-card-num{
+  font-family:'DM Mono',monospace;
+  font-size:60pt;
+  font-weight:500;
+  background:linear-gradient(135deg, rgba(139,92,246,0.3), rgba(236,72,153,0.3));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  line-height:1;
+  margin-bottom:16px;
+}
+.step-card-title{
+  font-size:26pt;
+  font-weight:700;
+  color:#FFFFFF;
+  margin-bottom:16px;
+}
+.step-card-text{
+  font-size:22pt;
+  color:rgba(255,255,255,0.5);
+  line-height:1.75;
+}
+
+/* NEGOTIATION ITEMS */
+.neg-item{
+  background:linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:20px;
+  margin-bottom:24px;
+  overflow:hidden;
+  page-break-inside:avoid;
+}
+.neg-item.highlight{
+  border-color:rgba(139,92,246,0.4);
+  background:linear-gradient(135deg, rgba(139,92,246,0.08) 0%, rgba(236,72,153,0.05) 100%);
+}
+.ni-header{
+  display:flex;
+  gap:24px;
+  align-items:center;
+  padding:30px 40px;
+  background:rgba(255,255,255,0.02);
+  border-bottom:1px solid rgba(255,255,255,0.05);
+}
+.ni-num{
+  width:48px;height:48px;
+  background:linear-gradient(135deg, #8B5CF6, #EC4899);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:22pt;font-weight:700;color:#FFFFFF;
+  flex-shrink:0;
+}
+.ni-title{font-size:28pt;font-weight:600;color:#FFFFFF;}
+.ni-body{padding:30px 40px;}
+.ni-text{font-size:24pt;color:rgba(255,255,255,0.55);line-height:1.8;}
+.ni-quote{
+  background:linear-gradient(135deg, rgba(139,92,246,0.1) 0%, rgba(236,72,153,0.1) 100%);
+  border-left:3px solid #8B5CF6;
+  padding:24px 32px;
+  margin-top:24px;
+  border-radius:0 12px 12px 0;
+  font-size:24pt;
+  color:#C4B5FD;
+  font-style:italic;
+  line-height:1.7;
+}
+
+/* INSIGHT GRID */
+.insight-card{
+  background:linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%);
+  border:1px solid rgba(255,255,255,0.08);
+  border-top:3px solid;
+  border-image:linear-gradient(90deg, #8B5CF6, #EC4899) 1;
+  border-radius:16px;
+  padding:36px;
+  page-break-inside:avoid;
+}
+.ic-icon{font-size:44pt;margin-bottom:16px;}
+.ic-title{font-size:24pt;font-weight:600;color:#FFFFFF;margin-bottom:12px;}
+.ic-text{font-size:22pt;color:rgba(255,255,255,0.5);line-height:1.7;}
+
+/* COMPARE */
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px;}
+.ccard{border-radius:20px;padding:50px;page-break-inside:avoid;}
+.ccard.pos{
+  background:linear-gradient(135deg, rgba(34,197,94,0.1) 0%, rgba(22,163,74,0.05) 100%);
+  border:1px solid rgba(34,197,94,0.25);
+}
+.ccard.neg{
+  background:linear-gradient(135deg, rgba(239,68,68,0.1) 0%, rgba(185,28,28,0.05) 100%);
+  border:1px solid rgba(239,68,68,0.25);
+}
+.cc-head{
+  display:flex;gap:16px;align-items:center;
+  padding-bottom:24px;margin-bottom:28px;
+}
+.ccard.pos .cc-head{border-bottom:1px solid rgba(34,197,94,0.2);}
+.ccard.neg .cc-head{border-bottom:1px solid rgba(239,68,68,0.2);}
+.cc-icon{font-size:36pt;}
+.cc-title{font-size:28pt;font-weight:700;}
+.ccard.pos .cc-title{color:#4ADE80;}
+.ccard.neg .cc-title{color:#F87171;}
+.cc-row{
+  font-size:22pt;display:flex;gap:16px;
+  padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.05);
+}
+.ccard.pos .cc-row{color:rgba(134,239,172,0.8);}
+.ccard.neg .cc-row{color:rgba(252,165,165,0.8);}
+
+/* CASE STUDY */
+.cs-frame{
+  border:1px solid rgba(139,92,246,0.3);
+  border-radius:24px;
+  overflow:hidden;
+  page-break-inside:avoid;
+}
+.cs-top{
+  background:linear-gradient(135deg, rgba(139,92,246,0.2) 0%, rgba(236,72,153,0.2) 100%);
+  padding:50px 60px;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.cs-tag{
+  font-family:'DM Mono',monospace;
+  font-size:18pt;color:#C4B5FD;
+  letter-spacing:0.2em;text-transform:uppercase;
+  margin-bottom:8px;
+}
+.cs-name{font-size:40pt;font-weight:700;color:#FFFFFF;}
+.cs-note{font-family:'DM Mono',monospace;font-size:18pt;color:rgba(255,255,255,0.4);text-align:right;}
+.cs-body{padding:50px 60px;background:rgba(0,0,0,0.3);}
+
+.stats-row{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:0;
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:16px;
+  overflow:hidden;
+  margin-bottom:40px;
+}
+.sr-cell{
+  padding:32px;text-align:center;
+  border-right:1px solid rgba(255,255,255,0.08);
+}
+.sr-cell:last-child{border-right:none;}
+.sr-num{
+  font-size:44pt;font-weight:700;
+  background:linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  line-height:1;
+}
+.sr-label{font-size:18pt;color:rgba(255,255,255,0.4);margin-top:10px;text-transform:uppercase;letter-spacing:0.1em;}
+
+.ph-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:0;
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:16px;
+  overflow:hidden;
+  margin-bottom:40px;
+}
+.phg-cell{
+  padding:28px;
+  border-right:1px solid rgba(255,255,255,0.08);
+}
+.phg-cell:last-child{
+  border-right:none;
+  background:linear-gradient(135deg, rgba(139,92,246,0.15) 0%, rgba(236,72,153,0.15) 100%);
+}
+.phg-year{font-family:'DM Mono',monospace;font-size:16pt;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.1em;}
+.phg-price{font-size:36pt;font-weight:700;color:#FFFFFF;line-height:1.1;margin-top:8px;}
+.phg-cell:last-child .phg-price{
+  background:linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.phg-note{font-size:18pt;color:rgba(255,255,255,0.3);margin-top:6px;}
+
+.timeline-label{
+  font-family:'DM Mono',monospace;
+  font-size:18pt;letter-spacing:0.2em;text-transform:uppercase;
+  background:linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  font-weight:600;margin-bottom:24px;
+}
+
+.nt-ev{display:flex;gap:30px;margin-bottom:20px;page-break-inside:avoid;}
+.nt-ev-l{display:flex;flex-direction:column;align-items:center;}
+.nt-dot{width:20px;height:20px;border-radius:50%;flex-shrink:0;margin-top:8px;}
+.nt-dot.b{background:#3B82F6;}
+.nt-dot.y{background:#F59E0B;}
+.nt-dot.w{background:transparent;border:3px dashed #6B7280;}
+.nt-dot.g{background:#22C55E;}
+.nt-vl{width:2px;flex:1;min-height:24px;background:rgba(255,255,255,0.1);margin:4px 0;}
+.nt-ev-b{flex:1;}
+.nt-ev-title{font-size:26pt;font-weight:600;color:#FFFFFF;}
+.nt-ev-price{font-size:36pt;font-weight:700;margin-top:4px;}
+.nt-ev-desc{font-size:22pt;color:rgba(255,255,255,0.45);margin-top:6px;line-height:1.6;}
+
+.chips-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:32px;padding-top:32px;border-top:1px solid rgba(255,255,255,0.1);}
+.chip{
+  background:linear-gradient(135deg, rgba(139,92,246,0.15) 0%, rgba(236,72,153,0.15) 100%);
+  border:1px solid rgba(139,92,246,0.3);
+  padding:12px 24px;
+  border-radius:100px;
+  font-size:20pt;
+  color:#C4B5FD;
+}
+
+.lessons-box{
+  background:linear-gradient(135deg, rgba(139,92,246,0.1) 0%, rgba(236,72,153,0.1) 100%);
+  border:1px solid rgba(139,92,246,0.2);
+  border-radius:20px;
+  padding:40px 50px;
+  margin-top:30px;
+  page-break-inside:avoid;
+}
+.lb-title{
+  font-family:'DM Mono',monospace;
+  font-size:18pt;letter-spacing:0.2em;text-transform:uppercase;
+  color:#C4B5FD;font-weight:600;margin-bottom:24px;
+}
+.lb-item{display:flex;gap:20px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.06);}
+.lb-item:last-child{border-bottom:none;}
+.lb-arr{color:#8B5CF6;flex-shrink:0;font-size:24pt;}
+.lb-text{font-size:24pt;color:rgba(255,255,255,0.6);line-height:1.65;}
+
+/* CHEAT SHEET */
+.cl-page{padding:80px 120px 100px;}
+.cl-header{
+  background:linear-gradient(135deg, rgba(139,92,246,0.15) 0%, rgba(236,72,153,0.15) 100%);
+  border:1px solid rgba(139,92,246,0.3);
+  border-radius:20px;
+  padding:40px 50px;
+  display:flex;justify-content:space-between;align-items:center;
+  margin-bottom:50px;
+}
+.clh-title{font-size:48pt;font-weight:700;color:#FFFFFF;}
+.clh-sub{font-size:22pt;color:rgba(255,255,255,0.4);font-style:italic;}
+.cl-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;}
+.cl-sec{margin-bottom:40px;page-break-inside:avoid;}
+.cl-sec-h{
+  font-family:'DM Mono',monospace;
+  font-size:20pt;letter-spacing:0.15em;text-transform:uppercase;
+  background:linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  font-weight:600;
+  border-bottom:2px solid rgba(139,92,246,0.3);
+  padding-bottom:16px;margin-bottom:24px;
+}
+.cl-item{
+  display:flex;gap:20px;align-items:flex-start;
+  padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.05);
+}
+.cl-sq{
+  width:24px;height:24px;
+  border:2px solid rgba(139,92,246,0.5);
+  border-radius:6px;
+  flex-shrink:0;margin-top:4px;
+}
+.cl-txt{font-size:24pt;color:rgba(255,255,255,0.6);line-height:1.5;}
+
+/* CLOSING */
+.closing{
+  padding:120px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+.cl-close-title{
+  font-size:80pt;
+  font-weight:800;
+  color:#FFFFFF;
+  line-height:1.15;
+  margin-bottom:30px;
+  letter-spacing:-0.02em;
+}
+.cl-close-title span{
+  background:linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.cl-close-sub{
+  font-size:28pt;
+  color:rgba(255,255,255,0.4);
+  max-width:1000px;
+  line-height:1.85;
+  font-weight:300;
+}
+.cl-disc{
+  font-family:'DM Mono',monospace;
+  font-size:18pt;
+  color:rgba(255,255,255,0.2);
+  margin-top:120px;
+  border-top:1px solid rgba(255,255,255,0.08);
+  padding-top:40px;
+  line-height:1.9;
+}
+
+.rh{
+  background:rgba(0,0,0,0.3);
+  border-bottom:1px solid rgba(255,255,255,0.08);
+  padding:24px 120px;
+  display:flex;justify-content:space-between;
+}
+.rh-t{font-family:'DM Mono',monospace;font-size:18pt;letter-spacing:0.15em;text-transform:uppercase;color:#8B5CF6;}
+.rh-p{font-family:'DM Mono',monospace;font-size:18pt;color:rgba(255,255,255,0.25);}
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="page cover gradient-mesh-1">
+  <div class="cover-nav">
+    <div class="cover-logo">PROPERTY.GUIDE</div>
+    <div class="cover-meta">2026 EDITION · VOLUME I</div>
+  </div>
+  <div class="cover-hero">
+    <div class="cover-badge">Real Estate Negotiation · Field Guide</div>
+    <div class="cover-h1">How to<br/>Negotiate<br/>a Home Price<br/><span>Like a Pro</span></div>
+    <div class="cover-deck">A field-tested playbook for finding undervalued listings, making confident low offers, and closing at the right price — without guesswork or overpaying.</div>
+    
+    <div style="margin:50px 0; border-radius:20px; overflow:hidden; border:1px solid rgba(139,92,246,0.3);">
+      <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-bYgSbqGvt5vQSB7z1M17i3SlpaStEr.png" alt="Real estate purchase agreement with house model, keys, calculator and documents on desk" style="width:100%; height:400px; object-fit:cover; display:block;">
+    </div>
+    
+    <div class="cover-stats">
+      <div class="cs-item"><div class="cs-num">18</div><div class="cs-label">Proven Strategies</div></div>
+      <div class="cs-item"><div class="cs-num">35%</div><div class="cs-label">Case Study Discount</div></div>
+      <div class="cs-item"><div class="cs-num">5+</div><div class="cs-label">Months DOM Target</div></div>
+      <div class="cs-item"><div class="cs-num">08</div><div class="cs-label">Chapters</div></div>
+    </div>
+  </div>
+  <div class="cover-author">
+    <div class="ca-text">By <strong>Nick Gerli</strong> · Based on personal field experience</div>
+    <div class="ca-date">2026</div>
+  </div>
+</div>
+
+<!-- CH1 MINDSET -->
+<div class="page page-break gradient-mesh-2">
+  <div class="rh"><div class="rh-t">Negotiation Guide</div><div class="rh-p">Chapter 01 — The Mindset</div></div>
+  <div class="ch-header">
+    <div class="ch-top">
+      <div class="ch-pill"><div class="ch-pill-dot"></div><div class="ch-pill-text">Chapter 01</div></div>
+      <div class="ch-progress"><div class="ch-dot active"></div><div class="ch-dot"></div><div class="ch-dot"></div><div class="ch-dot"></div><div class="ch-dot"></div><div class="ch-dot"></div><div class="ch-dot"></div><div class="ch-dot"></div></div>
+    </div>
+    <div class="ch-title">The Mindset<br/>Before the <span>Offer</span></div>
+    <div class="ch-intro">Before you make a single offer, understand one thing: this is a numbers game, not an emotional one. The right house at the wrong price is still a bad deal.</div>
+  </div>
+  <div class="ch-content">
+    <div class="quote-card no-break">
+      <div class="qc-mark">"</div>
+      <div class="qc-text">The house works at a certain price. Know that number for yourself — and never negotiate past it.</div>
+    </div>
+    
+    <div class="glass-card no-break">
+      <div class="gc-header"><div class="gc-icon">🧠</div><div><div class="gc-title">Stay Emotionally Detached</div></div></div>
+      <div class="gc-text">You are buying an asset, not a dream. Every house must pass the financial test first. The moment you fall in love, you lose leverage. View each property as a candidate — not a destination. Detachment is your most valuable negotiating tool.</div>
+      <div class="gc-text" style="margin-top:20px;"><strong style="color:#C4B5FD;">Why This Matters:</strong> Emotional attachment is the number one reason buyers overpay. Studies show that buyers who describe themselves as "in love" with a property pay an average of 8-12% more than objective market value. When you visit a home, imagine it's an investment property you'll never live in — this mental framework preserves your negotiating power.</div>
+      <div class="gc-text" style="margin-top:20px;"><strong style="color:#C4B5FD;">Practical Technique:</strong> Before every showing, write down your maximum price on paper. After the showing, if you want to exceed that number, wait 48 hours before making any decision. This cooling-off period prevents emotional overpayment.</div>
+    </div>
+    
+    <div class="glass-card no-break">
+      <div class="gc-header"><div class="gc-icon">📊</div><div><div class="gc-title">Lead Every Offer With Data</div></div></div>
+      <div class="gc-text">Your offer is a business proposal built on market forecasts, comparable sales, days on market, overvaluation metrics, and price cut history. When you walk an agent through your logic, you come off as a serious, informed buyer — and that credibility is worth more than any tactic.</div>
+      <div class="gc-text" style="margin-top:20px;"><strong style="color:#C4B5FD;">Key Data Points to Gather:</strong></div>
+      <div class="gc-text" style="margin-top:10px;">• <strong>Comparable Sales (Comps):</strong> Recent sales of similar properties within 0.5-1 mile radius, adjusted for differences in square footage, lot size, condition, and features. This establishes true market value independent of list price.</div>
+      <div class="gc-text" style="margin-top:10px;">• <strong>Days on Market (DOM):</strong> The total time a property has been listed. Average DOM varies by market — in hot markets 7-14 days is normal, in slower markets 60-90 days. Anything significantly above average signals pricing problems.</div>
+      <div class="gc-text" style="margin-top:10px;">• <strong>Price Cut History:</strong> Track every price reduction since original listing. Multiple cuts indicate a seller who overpriced initially and is adjusting expectations downward — they're pre-conditioned to negotiate.</div>
+      <div class="gc-text" style="margin-top:10px;">• <strong>Market Forecasts:</strong> Third-party projections from Zillow, CoreLogic, or local MLS data showing expected price movements over 6-12 months. Declining forecasts strengthen your position.</div>
+    </div>
+  
+    
+  </div>
+</div>
+
+<!-- PAGE 3: Ch1 Continued - BATNA + Key Concepts -->
+<div class="page page-break gradient-mesh-1">
+  <div class="rh"><div class="rh-t">Negotiation Guide</div><div class="rh-p">Chapter 01 Continued — Page 3</div></div>
+  <div class="ch-content" style="padding-top:80px;">
+    <div class="glass-card no-break">
+      <div class="gc-header"><div class="gc-icon">🤝</div><div><div class="gc-title">Be Professional at Every Step</div></div></div>
+      <div class="gc-text">Low offers only work when you come off as serious and prepared. Pre-approval or proof of funds, a clear offer letter, and respectful communication signal that you are a real buyer. Even a 25% below-asking offer can be taken seriously if delivered with the right documentation.</div>
+      <div class="gc-text" style="margin-top:20px;"><strong style="color:#C4B5FD;">Pre-Approval vs. Pre-Qualification — Understanding the Difference:</strong></div>
+      <div class="gc-text" style="margin-top:10px;">• <strong>Pre-Qualification:</strong> A quick estimate based on self-reported income and assets. Takes 1-2 hours. Carries minimal weight with sellers — it's essentially your word that you can afford the home.</div>
+      <div class="gc-text" style="margin-top:10px;">• <strong>Pre-Approval:</strong> A formal commitment from a lender after verifying income, assets, credit score, and debt-to-income ratio. Requires documentation review. Tells sellers you've already passed underwriting scrutiny — your offer is bankable.</div>
+      <div class="gc-text" style="margin-top:20px;"><strong style="color:#C4B5FD;">Professional Documentation Checklist:</strong> Pre-approval letter or proof of funds, offer letter explaining your position, contingency timeline, earnest money deposit amount (typically 1-3% of offer price), and proposed closing date.</div>
+    </div>
+    <div class="glass-card no-break">
+      <div class="gc-header"><div class="gc-icon">💰</div><div><div class="gc-title">Understanding Your BATNA</div></div></div>
+      <div class="gc-text"><strong style="color:#C4B5FD;">BATNA (Best Alternative To a Negotiated Agreement)</strong> is your fallback position if this deal falls through. In real estate, your BATNA might be another property you're considering, continuing to rent, or waiting for better market conditions.</div>
+      <div class="gc-text" style="margin-top:20px;">The stronger your BATNA, the more negotiating power you hold. If this is the only house you'll consider, you have no leverage. If you have three backup options you'd be equally happy with, you can negotiate confidently knowing you'll walk away if needed.</div>
+      <div class="gc-text" style="margin-top:20px;"><strong style="color:#C4B5FD;">Building a Strong BATNA:</strong> Always have 2-3 properties in your active pipeline. Never emotionally commit to one option before the contract is signed. The ability to genuinely walk away is your most powerful negotiating position.</div>
+    </div>
+    
+    <div class="callout-gradient no-break">
+      <div class="callout-gradient-text"><strong>Core Principle:</strong> Decide privately what price you'd feel genuinely happy paying. That is your ceiling — not a number you'd tolerate, but one you'd feel great about. Never negotiate past it. Write this number down before you start negotiations and commit to it absolutely.</div>
+    </div>
+    
+    <div class="glass-card no-break" style="margin-top:40px;">
+      <div class="gc-header"><div class="gc-icon">📚</div><div><div class="gc-title">Key Terms Explained</div></div></div>
+      <div class="gc-text"><strong style="color:#C4B5FD;">Days on Market (DOM):</strong> The number of days since a property was first listed for sale. Higher DOM indicates potential seller motivation and negotiating flexibility. Properties over 60-90 days typically represent stronger negotiation opportunities.</div>
+      <div class="gc-text" style="margin-top:20px;"><strong style="color:#C4B5FD;">Comparable Sales (Comps):</strong> Recently sold properties similar in size, condition, location, and features to the subject property. Comps from the past 3-6 months establish market value and provide evidence for offer justification.</div>
+      <div class="gc-text" style="margin-top:20px;"><strong style="color:#C4B5FD;">Carrying Costs:</strong> The ongoing expenses a property owner pays regardless of occupancy, including mortgage, taxes, insurance, utilities, HOA fees, and maintenance. These costs create seller motivation over time.</div>
+      <div class="gc-text" style="margin-top:20px;"><strong style="color:#C4B5FD;">Listing Agent vs Buyer's Agent:</strong> The listing agent represents the seller's interests; the buyer's agent represents you. Understand that listing agents are legally obligated to get the highest price for their client, not to help you negotiate.</div>
+    </div>
+  </div>
+</div>
+
+<!-- CH2 TARGETING (Page 4) -->
+<div class="page page-break gradient-mesh-2">
+  <div class="rh"><div class="rh-t">Negotiation Guide</div><div class="rh-p">Chapter 02 — Page 4</div></div>
+  <div class="ch-header">
+    <div class="ch-top">
+      <div class="ch-pill"><div class="ch-pill-dot"></div><div class="ch-pill-text">Chapter 02</div></div>
+      <div class="ch-progress"><div class="ch-dot"></div><div class="ch-dot active"></div><div class="ch-dot"></div><div class="ch-dot"></div><div class="ch-dot"></div><div class="ch-dot"></div><div class="ch-dot"></div><div class="ch-dot"></div></div>
+    </div>
+    <div class="ch-title">Targeting the<br/><span>Right</span> Listings</div>
+    <div class="ch-intro">Not every listing is a negotiation opportunity. These four filters narrow your search to deals where sellers are motivated and the math is on your side.</div>
+  </div>
+  <div class="ch-content">
+    <div class="glass-card no-break">
+      <div class="gc-header"><div class="gc-num">01</div><div><div class="gc-title">Target Markets With Downward Price Forecasts</div></div></div>
+      <div class="gc-text">Focus on metros where third-party data — Zillow forecasts, inventory trends, months of supply — point to price declines over the next 12 months. You want the market working in your direction.</div>
+      <div class="gc-text" style="margin-top:20px;"><strong style="color:#C4B5FD;">Understanding Months of Supply:</strong> This metric measures how long it would take to sell all current inventory at the current sales pace. It's calculated by dividing active listings by monthly sales.</div>
+      <div class="gc-text" style="margin-top:10px;">• <strong>0-3 Months:</strong> Strong seller's market. Multiple offers common. Limited negotiation room.</div>
+      <div class="gc-text" style="margin-top:10px;">• <strong>4-6 Months:</strong> Balanced market. Fair negotiation opportunity on both sides.</div>
+      <div class="gc-text" style="margin-top:10px;">• <strong>6+ Months:</strong> Buyer's market. Significant negotiation leverage. Prices likely declining.</div>
+      <div class="gc-text" style="margin-top:20px;"><strong style="color:#C4B5FD;">Where to Find This Data:</strong> Zillow Research, Redfin Data Center, local MLS reports, and the National Association of Realtors publish monthly/quarterly market reports with supply metrics.</div>
+    </div>
+    
+    <div class="glass-card no-break">
+      <div class="gc-header"><div class="gc-num">02</div><div><div class="gc-title">Find Listings on Market 5+ Months</div></div></div>
+      <div class="gc-text">A listing sitting five or more months has already been rejected by the market. Every month it doesn't sell, the seller carries mortgage, taxes, and maintenance with no return. By the time you arrive, expectations have shifted.</div>
+      <div class="gc-text" style="margin-top:20px;"><strong style="color:#C4B5FD;">Days on Market (DOM) Explained:</strong> DOM counts from the original list date to today. Some sellers relist to reset this counter — always check the full listing history to see the true DOM including previous listings.</div>
+      <div class="gc-text" style="margin-top:20px;"><strong style="color:#C4B5FD;">DOM Sweet Spots by Market Type:</strong></div>
+      <div class="gc-text" style="margin-top:10px;">• <strong>Hot Markets (Avg DOM 7-21 days):</strong> Target 60+ days for negotiation leverage.</div>
+      <div class="gc-text" style="margin-top:10px;">• <strong>Normal Markets (Avg DOM 30-60 days):</strong> Target 90-120+ days.</div>
+      <div class="gc-text" style="margin-top:10px;">• <strong>Slow Markets (Avg DOM 90+ days):</strong> Target 150-180+ days.</div>
+      <div class="gc-text" style="margin-top:20px;"><strong style="color:#C4B5FD;">Carrying Costs — The Seller's Hidden Burden:</strong> Every month a property sits unsold, the seller pays mortgage principal + interest, property taxes (typically 1-2% of value annually), insurance, HOA fees (if applicable), utilities, and maintenance. On a $400K home with a 7% mortgage, monthly carrying costs can exceed $3,500. After 5 months, that's $17,500 in sunk costs — money that increases seller motivation dramatically.</div>
+    </div>
+    
+  </div>
+</div>
+
+<!-- PAGE 5: Ch2 Continued - Price Cuts + Motivated Sellers -->
+<div class="page page-break gradient-mesh-1">
+  <div class="rh"><div class="rh-t">Negotiation Guide</div><div class="rh-p">Chapter 02 Continued — Page 5</div></div>
+  <div class="ch-content" style="padding-top:80px;">
+    <div class="glass-card no-break">
+      <div class="gc-header"><div class="gc-num">03</div><div><div class="gc-title">Prioritize Listings With Existing Price Cuts</div></div></div>
+      <div class="gc-text">A seller who has already reduced the price has demonstrated willingness to move. A price cut is public proof the original ask was wrong — and that the seller knows it. These sellers are pre-conditioned to negotiate further.</div>
+      <div class="gc-text" style="margin-top:20px;"><strong style="color:#C4B5FD;">Reading Price Cut Patterns:</strong></div>
+      <div class="gc-text" style="margin-top:10px;">• <strong>Single Large Cut (10%+):</strong> Seller received market feedback and adjusted significantly. May be motivated but still finding the floor.</div>
+      <div class="gc-text" style="margin-top:10px;">• <strong>Multiple Small Cuts (2-5% each):</strong> Seller is reluctantly accepting reality. Each cut represents emotional capitulation. After 3+ cuts, they're psychologically prepared for negotiation.</div>
+      <div class="gc-text" style="margin-top:10px;">• <strong>Cuts After Extended DOM:</strong> The most favorable signal. Combines time pressure with price flexibility.</div>
+    </div>
+    
+    <div class="glass-card no-break">
+      <div class="gc-header"><div class="gc-num">04</div><div><div class="gc-title">Target Sellers With Higher Mortgage Rates</div></div></div>
+      <div class="gc-text">A homeowner who purchased in 2022–2023 at 6–7% has higher monthly exposure than someone locked in at 3% in 2020. Research the sale history — when they bought and at what price reveals everything.</div>
+      <div class="gc-text" style="margin-top:20px;"><strong style="color:#C4B5FD;">The Rate Lock Trap:</strong> Sellers who bought at low rates (2.5-3.5% in 2020-2021) have extremely low monthly payments. Even if they want to move, selling means losing that rate forever. These sellers have rental income fallback options and minimal pressure to negotiate.</div>
+      <div class="gc-text" style="margin-top:20px;"><strong style="color:#C4B5FD;">High-Rate Seller Pressure Points:</strong> Conversely, 2022-2023 buyers at 6-7.5% rates face multiple pressures — higher monthly payments, potential negative equity if prices dropped, and inability to refinance into lower rates if they've declined.</div>
+    </div>
+    
+    <div class="compare-grid" style="margin-top:40px;">
+      <div class="ccard pos no-break">
+        <div class="cc-head"><div class="cc-icon">✅</div><div class="cc-title">High Motivation Signals</div></div>
+        <div class="cc-row"><div>→</div><div>"Motivated seller" or "bring all offers" language</div></div>
+        <div class="cc-row"><div>→</div><div>Vacant property (double carrying costs)</div></div>
+        <div class="cc-row"><div>→</div><div>Estate sale or probate listing</div></div>
+        <div class="cc-row"><div>→</div><div>Relocation/job transfer mentioned</div></div>
+        <div class="cc-row"><div>→</div><div>Multiple listing agent changes</div></div>
+      </div>
+      <div class="ccard neg no-break">
+        <div class="cc-head"><div class="cc-icon">❌</div><div class="cc-title">Low Motivation Signals</div></div>
+        <div class="cc-row"><div>→</div><div>"Will not respond to lowball offers"</div></div>
+        <div class="cc-row"><div>→</div><div>Owner-occupied with no timeline</div></div>
+        <div class="cc-row"><div>→</div><div>Recently purchased (little equity)</div></div>
+        <div class="cc-row"><div>→</div><div>Seller financing offered (not desperate)</div></div>
+        <div class="cc-row"><div>→</div><div>"Testing the market" language</div></div>
+      </div>
+    </div>
+    
+    <div class="callout-gradient no-break" style="margin-top:40px;">
+      <div class="callout-gradient-text"><strong>The Ideal Target Profile:</strong> A property that combines multiple signals — 5+ months DOM, existing price cuts, purchased 2022-2023 at high rates, in a market with rising inventory and flat/declining forecasts. When you stack 4-5 of these factors, aggressive negotiation becomes a mathematically justified strategy.</div>
+    </div>
+  </div>
+</div>
+
+<!-- CH3 OFFER (Page 6) -->
+<div class="page page-break gradient-mesh-2">
+  <div class="rh"><div class="rh-t">Negotiation Guide</div><div class="rh-p">Chapter 03 — Page 6</div></div>
+  <div class="ch-header">
+    <div class="ch-top">
+      <div class="ch-pill"><div class="ch-pill-dot"></div><div class="ch-pill-text">Chapter 03</div></div>
+      <div class="ch-progress"><div class="ch-dot"></div><div class="ch-dot"></div><div class="ch-dot active"></div><div class="ch-dot"></div><div class="ch-dot"></div><div class="ch-dot"></div><div class="ch-dot"></div><div class="ch-dot"></div></div>
+    </div>
+    <div class="ch-title">Constructing<br/>Your <span>Offer</span></div>
+    <div class="ch-intro">Your offer is a business proposal. It should be grounded in data, accompanied by credibility signals, and delivered with confidence — not anchored to the list price.</div>
+  </div>
+  <div class="ch-content">
+    <div class="two-col">
+      <div class="step-card no-break">
+        <div class="step-card-num">01</div>
+        <div class="step-card-title">Price Using Forecasts, Not Comps Alone</div>
+        <div class="step-card-text">Base your number on where prices are headed, not where they've been. Factor in the overvaluation percentage and downward forecast.</div>
+        <div class="step-card-text" style="margin-top:16px;color:rgba(196,181,253,0.9);"><strong>Forward-Looking Pricing Formula:</strong> Start with comparable sales value, then subtract expected depreciation based on 12-month forecast. If comps suggest $380K and forecasts show -5% decline, price your offer around $361K.</div>
+      </div>
+      <div class="step-card no-break">
+        <div class="step-card-num">02</div>
+        <div class="step-card-title">Show Proof of Funds First</div>
+        <div class="step-card-text">Send documentation before or with your offer — never after. Pre-approval signals you're a real buyer.</div>
+        <div class="step-card-text" style="margin-top:16px;color:rgba(196,181,253,0.9);"><strong>What Constitutes Proof:</strong> Bank statements (last 60 days), investment account statements, pre-approval letter from lender, or letter from financial institution confirming liquid assets.</div>
+      </div>
+      <div class="step-card no-break">
+        <div class="step-card-num">03</div>
+        <div class="step-card-title">Use Cash as Leverage</div>
+        <div class="step-card-text">A cash offer — 3-week close, no financing contingency — removes risk. They'll accept a lower price for certainty.</div>
+        <div class="step-card-text" style="margin-top:16px;color:rgba(196,181,253,0.9);"><strong>Cash Premium Calculation:</strong> Cash offers typically warrant 3-8% discounts because they eliminate appraisal risk, financing fall-through risk, and can close in 2-3 weeks vs. 30-45 days.</div>
+      </div>
+      <div class="step-card no-break">
+        <div class="step-card-num">04</div>
+        <div class="step-card-title">Offer What You're Comfortable With</div>
+        <div class="step-card-text">Do not anchor to the list price. If the data supports a lower number, go there with confidence.</div>
+        <div class="step-card-text" style="margin-top:16px;color:rgba(196,181,253,0.9);"><strong>The Anchoring Trap:</strong> List prices create psychological anchors. Train yourself to ignore them completely. Calculate your offer from comps and forecasts, not as a discount from asking.</div>
+      </div>
+    </div>
+    <div class="glass-card no-break" style="margin-top:30px;">
+      <div class="gc-header"><div class="gc-icon">📝</div><div><div class="gc-title">Anatomy of a Winning Offer Letter</div></div></div>
+      <div class="gc-text">Your written offer should include these elements to maximize credibility and persuasion:</div>
+      <div class="gc-text" style="margin-top:20px;">• <strong>Opening:</strong> State your offer price clearly and confidently. No apologetic language.</div>
+      <div class="gc-text" style="margin-top:10px;">• <strong>Justification:</strong> Reference specific data points — comparable sales, DOM, market forecasts — that support your price.</div>
+      <div class="gc-text" style="margin-top:10px;">• <strong>Proof of Capability:</strong> Mention attached pre-approval or proof of funds. Emphasize your ability to close quickly.</div>
+      <div class="gc-text" style="margin-top:10px;">• <strong>Contingencies:</strong> Keep them minimal. Inspection is standard. Avoid financing contingency if possible.</div>
+      <div class="gc-text" style="margin-top:10px;">• <strong>Timeline:</strong> Propose specific dates for inspection and closing. 2-3 week close for cash, 30-day for financed.</div>
+      <div class="gc-text" style="margin-top:10px;">• <strong>Earnest Money:</strong> Offer 1-3% of purchase price. Higher earnest money signals seriousness.</div>
+    </div>
+  </div>
+</div>
+
+<!-- CH4 NEGOTIATION (Page 8) -->
+<div class="page page-break gradient-mesh-2">
+  <div class="rh"><div class="rh-t">Negotiation Guide</div><div class="rh-p">Chapter 04 — Page 7</div></div>
+  <div class="ch-content" style="padding-top:80px;">
+
+    
+    <div class="glass-card no-break" style="margin-top:30px;">
+      <div class="gc-header"><div class="gc-icon">⚠️</div><div><div class="gc-title">Understanding Contingencies</div></div></div>
+      <div class="gc-text"><strong style="color:#C4B5FD;">Inspection Contingency:</strong> Allows you to hire a professional inspector and negotiate repairs or price reductions based on findings. Nearly always advisable — hidden issues can cost tens of thousands.</div>
+      <div class="gc-text" style="margin-top:20px;"><strong style="color:#C4B5FD;">Financing Contingency:</strong> Protects you if your loan falls through. However, it's also the biggest deal-killer for sellers. If you can get fully underwritten pre-approval, consider waiving this to strengthen your offer.</div>
+      <div class="gc-text" style="margin-top:20px;"><strong style="color:#C4B5FD;">Appraisal Contingency:</strong> Protects you if the bank appraises the home below your offer price. In a declining market, this is protection worth keeping. In a stable market, waiving can make your offer more competitive.</div>
+    </div>
+  </div>
+  <div class="ch-header">
+    <div class="ch-top">
+      <div class="ch-pill"><div class="ch-pill-dot"></div><div class="ch-pill-text">Chapter 04</div></div>
+      <div class="ch-progress"><div class="ch-dot"></div><div class="ch-dot"></div><div class="ch-dot"></div><div class="ch-dot active"></div><div class="ch-dot"></div><div class="ch-dot"></div><div class="ch-dot"></div><div class="ch-dot"></div></div>
+    </div>
+    <div class="ch-title">The Negotiation<br/><span>Dance</span></div>
+    <div class="ch-intro">Most buyers give up after the first rejection. That is exactly why most buyers overpay. What looks like a dead deal is often just the beginning.</div>
+  </div>
+  <div class="ch-content">
+    <div style="display:flex; gap:50px; margin-bottom:50px; align-items:stretch;">
+      <div style="flex:0 0 600px; border-radius:16px; overflow:hidden; border:1px solid rgba(139,92,246,0.3);">
+        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-Hhs8pwVlIF4zwtOyjslCGhWfnsNe1M.png" alt="Real estate purchase agreement with house model and keys" style="width:100%; height:100%; object-fit:cover; display:block;">
+      </div>
+      <div style="flex:1; display:flex; flex-direction:column; justify-content:center;">
+        <div style="font-size:32pt; font-weight:700; color:#FFFFFF; margin-bottom:20px;">Face-to-Face Negotiation Dynamics</div>
+        <div style="font-size:24pt; color:rgba(255,255,255,0.55); line-height:1.8;">Professional real estate negotiations involve careful document review, strategic positioning, and reading subtle cues from all parties. Whether working through agents or directly with sellers, mastering these dynamics separates successful buyers from those who overpay.</div>
+      </div>
+    </div>
+    <div class="neg-item no-break">
+      <div class="ni-header"><div class="ni-num">1</div><div class="ni-title">Expect the First Rejection — It's Normal</div></div>
+      <div class="ni-body">
+        <div class="ni-text">Almost every below-asking offer gets rejected first. This is expected. Stay calm. Do not chase. A rejection is not a no — it's the opening move.</div>
+        <div class="ni-text" style="margin-top:16px;"><strong style="color:#C4B5FD;">The Psychology Behind Rejection:</strong> Sellers have emotional investment in their home's perceived value. The first rejection is often reflexive — they haven't yet processed the market reality. Give them time. The listing agent will work on adjusting expectations.</div>
+        <div class="ni-text" style="margin-top:12px;"><strong style="color:#C4B5FD;">Statistical Reality:</strong> In buyer's markets, 60-70% of initial lowball offers are rejected. Of those, approximately 40% eventually close within 15% of the original offer. Patience is statistically rewarded.</div>
+      </div>
+    </div>
+    
+    <div class="neg-item no-break">
+      <div class="ni-header"><div class="ni-num">2</div><div class="ni-title">A Counter Is a Green Light</div></div>
+      <div class="ni-body">
+        <div class="ni-text">If the seller counters — even far from your offer — treat it as a win. They are engaged and negotiating. You have confirmation they want to talk.</div>
+        <div class="ni-text" style="margin-top:16px;"><strong style="color:#C4B5FD;">Reading Counter Offers:</strong> The gap between their counter and your offer reveals their flexibility. If you offered $315K and they counter $400K on a $410K listing, they've already mentally moved $10K. That psychological shift is significant.</div>
+        <div class="ni-text" style="margin-top:12px;"><strong style="color:#C4B5FD;">Counter-Counter Strategy:</strong> Never match their movement dollar-for-dollar. If they dropped $10K, you might raise $5K. This signals you have limits while showing good faith engagement.</div>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+<!-- PAGE 9: Ch4 Continued - More Tactics -->
+<div class="page page-break gradient-mesh-1">
+  <div class="rh"><div class="rh-t">Negotiation Guide</div><div class="rh-p">Chapter 04 Continued — Page 8</div></div>
+  <div class="ch-content" style="padding-top:80px;">
+    <div class="neg-item highlight no-break">
+      <div class="ni-header"><div class="ni-num">3</div><div class="ni-title">Reject the High Counter — Then Go Quiet</div></div>
+      <div class="ni-body">
+        <div class="ni-text">Decline gracefully. Communicate your budget ceiling and reaffirm genuine interest. Then stop. Do not follow up. Silence is leverage.</div>
+        <div class="ni-quote">"I appreciate the counter. My budget genuinely caps out at [X]. I'm still very interested and will keep thinking about it."</div>
+        <div class="ni-text" style="margin-top:20px;"><strong style="color:#C4B5FD;">Why Silence Works:</strong> Every week of continued market exposure costs the seller money and erodes confidence. Your silence isn't passive — it's letting time and carrying costs do negotiating work for you.</div>
+      </div>
+    </div>
+    
+    <div class="neg-item highlight no-break">
+      <div class="ni-header"><div class="ni-num">4</div><div class="ni-title">Ask the Right Question If They Go Silent</div></div>
+      <div class="ni-body">
+        <div class="ni-text">If the seller never countered, reach out once to the listing agent — calmly, without desperation.</div>
+        <div class="ni-quote">"I know we might seem far apart, but I'm genuinely interested. Is there a level where a counter would make sense?"</div>
+        <div class="ni-text" style="margin-top:20px;"><strong style="color:#C4B5FD;">Why This Question Works:</strong> It invites dialogue without committing you to anything. It gives the listing agent ammunition to approach their client.</div>
+      </div>
+    </div>
+    
+    <div class="neg-item no-break">
+      <div class="ni-header"><div class="ni-num">5</div><div class="ni-title">Know Your Ceiling — And Never Exceed It</div></div>
+      <div class="ni-body">
+        <div class="ni-text">Before the first offer, decide what price you'd feel genuinely happy paying. That is your ceiling. Every dollar above it is money spent winning a psychological game.</div>
+        <div class="ni-text" style="margin-top:16px;"><strong style="color:#C4B5FD;">The Happy Price Test:</strong> Your ceiling isn't the maximum you could technically afford — it's the price where you'd feel you got a good deal.</div>
+        <div class="ni-text" style="margin-top:12px;"><strong style="color:#C4B5FD;">Walking Away:</strong> The willingness to walk away must be genuine, not performed. If you can't actually leave, they'll sense it.</div>
+      </div>
+    </div>
+    
+    <div class="callout-gradient no-break" style="margin-top:40px;">
+      <div class="callout-gradient-text"><strong>The Negotiation Timeline Reality:</strong> Most successful below-market purchases take 2-6 weeks from first offer to accepted contract. Fast closings happen, but expect multiple rounds of back-and-forth. Patience isn't passive — it's strategic.</div>
+    </div>
+  </div>
+</div>
+
+<!-- CH5 SELLER (Page 10) -->
+<div class="page page-break gradient-mesh-2">
+  <div class="rh"><div class="rh-t">Negotiation Guide</div><div class="rh-p">Chapter 05 — Page 9</div></div>
+  <div class="ch-header">
+    <div class="ch-top">
+      <div class="ch-pill"><div class="ch-pill-dot"></div><div class="ch-pill-text">Chapter 05</div></div>
+      <div class="ch-progress"><div class="ch-dot"></div><div class="ch-dot"></div><div class="ch-dot"></div><div class="ch-dot"></div><div class="ch-dot active"></div><div class="ch-dot"></div><div class="ch-dot"></div><div class="ch-dot"></div></div>
+    </div>
+    <div class="ch-title">Getting Inside<br/>the Seller's <span>Head</span></div>
+    <div class="ch-intro">Information is leverage. The more you understand about the seller's situation before making an offer, the better positioned you are to price it correctly.</div>
+  </div>
+<div class="ch-content">
+    <div class="three-col">
+      <div class="insight-card no-break"><div class="ic-icon">🏦</div><div class="ic-title">What's Their Rate?</div><div class="ic-text">A seller at 7% loses money monthly. At 3%, no urgency — they may rent instead. Research when they bought.</div></div>
+      <div class="insight-card no-break"><div class="ic-icon">📦</div><div class="ic-title">Is It Vacant?</div><div class="ic-text">An empty house means they've moved on emotionally and are paying carrying costs with zero benefit.</div></div>
+      <div class="insight-card no-break"><div class="ic-icon">🌿</div><div class="ic-title">How's Upkeep?</div><div class="ic-text">Neglected landscaping signals an absentee owner, financial stress, or emotional disconnection.</div></div>
+      <div class="insight-card no-break"><div class="ic-icon">🧾</div><div class="ic-title">Why Selling?</div><div class="ic-text">Relocation, divorce, inheritance — each carries different urgency and flexibility levels.</div></div>
+      <div class="insight-card no-break"><div class="ic-icon">💸</div><div class="ic-title">Monthly Costs?</div><div class="ic-text">If mortgage exceeds rental income potential, they have a cash-flow problem. You're the solution.</div></div>
+      <div class="insight-card no-break"><div class="ic-icon">📉</div><div class="ic-title">Accepted Loss?</div><div class="ic-text">If sale history shows they paid more than current ask, they've reconciled losing money — more flexible.</div></div>
+    </div>
+    
+    <div class="glass-card no-break" style="margin-top:50px;">
+      <div class="gc-header"><div class="gc-icon">🔍</div><div><div class="gc-title">Deep Dive: Seller Motivation Types</div></div></div>
+      <div class="gc-text"><strong style="color:#C4B5FD;">Job Relocation:</strong> Often the most motivated sellers. They have a start date in another city, may be paying two mortgages, and need to close quickly. Time pressure is your leverage. They'll often accept 5-10% below market for certainty and speed.</div>
+      <div class="gc-text" style="margin-top:20px;"><strong style="color:#C4B5FD;">Divorce:</strong> Highly motivated due to emotional desire to move on, legal requirements to divide assets, and inability to afford the home on single income. Both parties usually want a quick resolution. Be sensitive but recognize the opportunity.</div>
+      <div class="gc-text" style="margin-top:20px;"><strong style="color:#C4B5FD;">Inheritance/Estate Sale:</strong> Heirs often don't live locally, don't want to manage the property, and view any proceeds as "found money." They're frequently less attached to achieving maximum price and more interested in simplicity.</div>
+      <div class="gc-text" style="margin-top:20px;"><strong style="color:#C4B5FD;">Financial Distress/Pre-Foreclosure:</strong> Sellers facing foreclosure have a hard deadline. They must sell before the bank takes the house. While ethically complex, these situations offer maximum negotiating leverage if you can close quickly enough.</div>
+      <div class="gc-text" style="margin-top:20px;"><strong style="color:#C4B5FD;">Lifestyle Change (Downsizing/Upsizing):</strong> Less urgency than relocation. These sellers often have flexibility on timing and may be holding out for their target price. Negotiation is possible but requires patience.</div>
+    </div>
+    
+    <div class="glass-card no-break" style="margin-top:30px;">
+      <div class="gc-header"><div class="gc-icon">📊</div><div><div class="gc-title">Research Techniques for Seller Intelligence</div></div></div>
+      <div class="gc-text"><strong style="color:#C4B5FD;">Public Records:</strong> County assessor websites show purchase dates, prices, and mortgage information. This reveals their equity position and rate exposure.</div>
+      <div class="gc-text" style="margin-top:20px;"><strong style="color:#C4B5FD;">Listing Agent Conversation:</strong> Ask casually: "Is the seller flexible on timeline?" "Are they already moved?" "How quickly do they need to close?" Agents often reveal more than they should.</div>
+      <div class="gc-text" style="margin-top:20px;"><strong style="color:#C4B5FD;">Drive-By Observations:</strong> Is the house clearly vacant? Is mail piling up? Is the lawn overgrown? Are there moving boxes visible? These visual cues indicate seller circumstances.</div>
+      <div class="gc-text" style="margin-top:20px;"><strong style="color:#C4B5FD;">Listing History Analysis:</strong> How long has it been listed? How many price reductions? Was it withdrawn and relisted? Each data point tells part of the seller's story.</div>
+    </div>
+  </div>
+  </div>
+</div>
+
+<!-- CH6 BATTLEFIELD (Page 11) -->
+<div class="page page-break gradient-mesh-1">
+  <div class="rh"><div class="rh-t">Negotiation Guide</div><div class="rh-p">Chapter 06 — Page 10</div></div>
+  <div class="ch-header">
+    <div class="ch-top">
+      <div class="ch-pill"><div class="ch-pill-dot"></div><div class="ch-pill-text">Chapter 06</div></div>
+      <div class="ch-progress"><div class="ch-dot"></div><div class="ch-dot"></div><div class="ch-dot"></div><div class="ch-dot"></div><div class="ch-dot"></div><div class="ch-dot active"></div><div class="ch-dot"></div><div class="ch-dot"></div></div>
+    </div>
+    <div class="ch-title">Know the<br/><span>Battlefield</span></div>
+    <div class="ch-intro">Lowballing is a strategy, not a habit. It works in specific conditions and backfires in others.</div>
+  </div>
+  <div class="ch-content">
+    <div class="compare-grid">
+      <div class="ccard pos no-break">
+        <div class="cc-head"><div class="cc-icon">✅</div><div class="cc-title">Where Lowballing Works</div></div>
+        <div class="cc-row"><div>→</div><div>Oversupplied market with rising inventory (6+ months supply)</div></div>
+        <div class="cc-row"><div>→</div><div>Negative or flat 12-month price forecast from Zillow/CoreLogic</div></div>
+        <div class="cc-row"><div>→</div><div>Listing on market 5+ months (well above area average)</div></div>
+        <div class="cc-row"><div>→</div><div>Seller purchased 2022–2023 at 6-7%+ mortgage rates</div></div>
+        <div class="cc-row"><div>→</div><div>House is clearly vacant with carrying costs accumulating</div></div>
+        <div class="cc-row"><div>→</div><div>Seller has made multiple price reductions already</div></div>
+        <div class="cc-row"><div>→</div><div>Signs of distress: deferred maintenance, absentee ownership</div></div>
+        <div class="cc-row"><div>→</div><div>Seller listing below their purchase price (accepted loss)</div></div>
+      </div>
+      <div class="ccard neg no-break">
+        <div class="cc-head"><div class="cc-icon">❌</div><div class="cc-title">Where It Backfires</div></div>
+        <div class="cc-row"><div>→</div><div>Tight, competitive market with under 3 months supply</div></div>
+        <div class="cc-row"><div>→</div><div>Positive 12-month price forecast (appreciation expected)</div></div>
+        <div class="cc-row"><div>→</div><div>Fresh listing under 3 months with strong showing activity</div></div>
+        <div class="cc-row"><div>→</div><div>Seller locked in at 2.5-3.5% (2020-2021 purchase)</div></div>
+        <div class="cc-row"><div>→</div><div>Active multiple-offer situation or bidding wars</div></div>
+        <div class="cc-row"><div>→</div><div>Seller has rental income fallback option</div></div>
+        <div class="cc-row"><div>→</div><div>No financial or timeline pressure on seller</div></div>
+        <div class="cc-row"><div>→</div><div>Property priced at or below comparable sales</div></div>
+      </div>
+    </div>
+    
+    <div class="callout-gradient no-break" style="margin-top:40px;">
+      <div class="callout-gradient-text"><strong>Stack the conditions:</strong> Every "Works" factor that applies increases your leverage. Stack 4–5 together and a 25–35% below-asking offer becomes a credible business proposition. Below 4 factors, adjust your discount expectations accordingly.</div>
+    </div>
+    
+    <div class="glass-card no-break" style="margin-top:40px;">
+      <div class="gc-header"><div class="gc-icon">📐</div><div><div class="gc-title">Calibrating Your Discount by Condition Count</div></div></div>
+      <div class="gc-text"><strong style="color:#C4B5FD;">1-2 Favorable Conditions:</strong> Target 5-10% below asking. You have some leverage but not overwhelming advantage. Expect negotiation to land at 3-7% discount.</div>
+      <div class="gc-text" style="margin-top:20px;"><strong style="color:#C4B5FD;">3-4 Favorable Conditions:</strong> Target 10-20% below asking. Seller is feeling pressure from multiple angles. Negotiation likely lands at 8-15% discount.</div>
+      <div class="gc-text" style="margin-top:20px;"><strong style="color:#C4B5FD;">5-6 Favorable Conditions:</strong> Target 20-30% below asking. Strong buyer's position. Time and circumstances are working heavily in your favor. Expect 15-25% final discount.</div>
+      <div class="gc-text" style="margin-top:20px;"><strong style="color:#C4B5FD;">7-8 Favorable Conditions:</strong> Target 30-40% below asking. Rare situations where seller is desperate. The Atlanta case study (35% below peak) involved 6+ favorable conditions stacked together.</div>
+    </div>
+    
+    <div class="glass-card no-break" style="margin-top:30px;">
+      <div class="gc-header"><div class="gc-icon">⚖️</div><div><div class="gc-title">Risk Assessment: When to Walk Away</div></div></div>
+      <div class="gc-text">Not every negotiation is worth pursuing. Recognize these signs that you should move to other targets:</div>
+      <div class="gc-text" style="margin-top:20px;">• <strong>Seller has rejected 3+ offers from different buyers at similar prices:</strong> They're anchored to an unrealistic number and unwilling to move.</div>
+      <div class="gc-text" style="margin-top:10px;">• <strong>Property has fundamental issues beyond price:</strong> Location problems, structural defects, or title issues that discount can't solve.</div>
+      <div class="gc-text" style="margin-top:10px;">• <strong>Your BATNA is stronger:</strong> Other properties offer better value with less negotiation friction.</div>
+      <div class="gc-text" style="margin-top:10px;">• <strong>Market conditions are shifting against you:</strong> Interest rates dropping, inventory tightening, multiple offers appearing.</div>
+    </div>
+  </div>
+</div>
+
+<!-- CH7 CASE STUDY (Page 12) -->
+<div class="page page-break gradient-mesh-2">
+  <div class="rh"><div class="rh-t">Negotiation Guide</div><div class="rh-p">Chapter 07 — Page 11</div></div>
+  <div class="ch-header">
+    <div class="ch-top">
+      <div class="ch-pill"><div class="ch-pill-dot"></div><div class="ch-pill-text">Chapter 07</div></div>
+      <div class="ch-progress"><div class="ch-dot"></div><div class="ch-dot"></div><div class="ch-dot"></div><div class="ch-dot"></div><div class="ch-dot"></div><div class="ch-dot"></div><div class="ch-dot active"></div><div class="ch-dot"></div></div>
+    </div>
+    <div class="ch-title">35% Below Peak:<br/><span>Atlanta, GA</span></div>
+    <div class="ch-intro">Here is how this exact framework played out on a real purchase — from first offer to closing, with all the numbers intact.</div>
+  </div>
+  <div class="ch-content">
+    <div class="cs-frame no-break">
+      <div class="cs-top">
+        <div><div class="cs-tag">Case Study</div><div class="cs-name">Atlanta Metro — Single Family · New Build 2021</div></div>
+        <div class="cs-note">All figures real<br/>Cash purchase</div>
+      </div>
+      <div class="cs-body">
+        <div class="stats-row no-break">
+          <div class="sr-cell"><div class="sr-num">$410K</div><div class="sr-label">List When Targeted</div></div>
+          <div class="sr-cell"><div class="sr-num">$315K</div><div class="sr-label">First Offer Made</div></div>
+          <div class="sr-cell"><div class="sr-num">$330K</div><div class="sr-label">Final Purchase</div></div>
+          <div class="sr-cell"><div class="sr-num">$167K</div><div class="sr-label">Saved vs. Peak</div></div>
+        </div>
+        <div class="ph-grid no-break">
+          <div class="phg-cell"><div class="phg-year">2021</div><div class="phg-price">$441K</div><div class="phg-note">New build</div></div>
+          <div class="phg-cell"><div class="phg-year">2023</div><div class="phg-price">$497K</div><div class="phg-note">Peak resale</div></div>
+          <div class="phg-cell"><div class="phg-year">Early 2026</div><div class="phg-price">$410K</div><div class="phg-note">Listed</div></div>
+          <div class="phg-cell"><div class="phg-year">Closed</div><div class="phg-price">$330K</div><div class="phg-note">Purchased</div></div>
+        </div>
+        <div class="timeline-label">Negotiation Timeline</div>
+        <div class="nt-ev no-break"><div class="nt-ev-l"><div class="nt-dot b"></div><div class="nt-vl"></div></div><div class="nt-ev-b"><div class="nt-ev-title">Initial Offer Submitted</div><div class="nt-ev-price" style="color:#3B82F6;">$315,000</div><div class="nt-ev-desc">Cash. Proof of funds sent before touring. 3-week close.</div></div></div>
+        <div class="nt-ev no-break"><div class="nt-ev-l"><div class="nt-dot y"></div><div class="nt-vl"></div></div><div class="nt-ev-b"><div class="nt-ev-title">Rejected — Seller Countered</div><div class="nt-ev-price" style="color:#F59E0B;">$400,000</div><div class="nt-ev-desc">Counter rejected politely. Budget ceiling stated.</div></div></div>
+        <div class="nt-ev no-break"><div class="nt-ev-l"><div class="nt-dot w"></div><div class="nt-vl"></div></div><div class="nt-ev-b"><div class="nt-ev-title">Two Weeks of Silence</div><div class="nt-ev-desc">No contact made. House continued to sit.</div></div></div>
+        <div class="nt-ev no-break"><div class="nt-ev-l"><div class="nt-dot y"></div><div class="nt-vl"></div></div><div class="nt-ev-b"><div class="nt-ev-title">Seller Returned Unprompted</div><div class="nt-ev-price" style="color:#F59E0B;">$365,000</div><div class="nt-ev-desc">Listing agent called back with lower counter.</div></div></div>
+        <div class="nt-ev no-break"><div class="nt-ev-l"><div class="nt-dot g"></div></div><div class="nt-ev-b"><div class="nt-ev-title">Final Counter — Accepted ✓</div><div class="nt-ev-price" style="color:#22C55E;">$330,000</div><div class="nt-ev-desc">Closed in 3 weeks on cash terms.</div></div></div>
+        <div class="chips-row no-break">
+          <div class="chip">📉 34% Below Peak</div>
+          <div class="chip">📉 25% Below Build</div>
+          <div class="chip">📅 2017–18 Pricing</div>
+          <div class="chip">⚡ Cash Close</div>
+          <div class="chip">✅ Inspection Done</div>
+        </div>
+      </div>
+    </div>
+    <div class="lessons-box no-break">
+      <div class="lb-title">Key Lessons From This Deal</div>
+      <div class="lb-item"><div class="lb-arr">→</div><div class="lb-text"><strong>Proof of funds before the tour built instant credibility.</strong> The listing agent knew immediately this was a serious buyer, not a time-waster. This credibility carried through every subsequent interaction.</div></div>
+      <div class="lb-item"><div class="lb-arr">→</div><div class="lb-text"><strong>Two weeks of silence was the turning point.</strong> During those two weeks, the house had more showings but no offers. Each passing day increased seller anxiety. The silence wasn't passive — it was strategic pressure.</div></div>
+      <div class="lb-item"><div class="lb-arr">→</div><div class="lb-text"><strong>The seller had already taken a mental loss.</strong> By listing at $410K (below their $441K purchase price), they'd already processed losing money. The negotiation became about speed and certainty, not price recovery.</div></div>
+      <div class="lb-item"><div class="lb-arr">→</div><div class="lb-text"><strong>Cash removed all uncertainty.</strong> A 3-week close with no financing contingency was worth more to the seller than the $35K difference between the $365K counter and $330K final price.</div></div>
+      <div class="lb-item"><div class="lb-arr">→</div><div class="lb-text"><strong>Multiple favorable conditions stacked.</strong> This deal combined: 5+ months DOM, prior price cuts, high-rate purchase (2021), vacant property, declining market forecast, and accepted paper loss. Six factors stacked created 35% below-peak leverage.</div></div>
+    </div>
+    
+    <div class="glass-card no-break" style="margin-top:40px;">
+      <div class="gc-header"><div class="gc-icon">📈</div><div><div class="gc-title">Why This Deal Structure Worked</div></div></div>
+      <div class="gc-text"><strong style="color:#C4B5FD;">Seller's Carrying Cost Reality:</strong> At $410K with a 6.5% rate, monthly PITI (Principal, Interest, Taxes, Insurance) was approximately $3,200. After 6 months on market, that's $19,200 in sunk costs with no return. Every additional month was another $3,200 gone.</div>
+      <div class="gc-text" style="margin-top:20px;"><strong style="color:#C4B5FD;">The Math That Closed the Deal:</strong> Seller's choice: Accept $330K now, or wait potentially 3-6 more months for a higher offer (that might never come) while paying $9,600-$19,200 more in carrying costs. The certainty of cash vs. the uncertainty of waiting made $330K the rational choice.</div>
+      <div class="gc-text" style="margin-top:20px;"><strong style="color:#C4B5FD;">Buyer's Value Captured:</strong> Purchase at $330K vs. peak value of $497K = $167K in equity captured. Even if market stabilizes at 10% below peak ($447K), buyer has $117K in instant equity. This is the power of patient, data-driven negotiation.</div>
+    </div>
+  </div>
+</div>
+
+<!-- CH8 CHEAT SHEET (Page 13) -->
+<div class="page page-break gradient-mesh-1">
+  <div class="rh"><div class="rh-t">Negotiation Guide</div><div class="rh-p">Chapter 08 — Cheat Sheet</div></div>
+  <div class="ch-header">
+    <div class="ch-top">
+      <div class="ch-pill"><div class="ch-pill-dot"></div><div class="ch-pill-text">Chapter 08</div></div>
+      <div class="ch-progress"><div class="ch-dot"></div><div class="ch-dot"></div><div class="ch-dot"></div><div class="ch-dot"></div><div class="ch-dot"></div><div class="ch-dot"></div><div class="ch-dot"></div><div class="ch-dot active"></div></div>
+    </div>
+    <div class="ch-title">The Negotiation<br/><span>Cheat Sheet</span></div>
+    <div class="ch-intro">Save this page. Use it before every single offer. The more boxes you can check, the stronger your position.</div>
+  </div>
+  <div class="cl-page">
+    <div class="cl-header">
+      <div class="clh-title">Quick Reference Checklist</div>
+      <div class="clh-sub">Print this page for every offer</div>
+    </div>
+    <div class="cl-grid">
+      <div>
+        <div class="cl-sec no-break">
+          <div class="cl-sec-h">Before You Make an Offer</div>
+          <div class="cl-item"><div class="cl-sq"></div><div class="cl-txt">Market has flat or downward 12-month forecast</div></div>
+          <div class="cl-item"><div class="cl-sq"></div><div class="cl-txt">Listing on market 5 or more months</div></div>
+          <div class="cl-item"><div class="cl-sq"></div><div class="cl-txt">At least one price cut has occurred</div></div>
+          <div class="cl-item"><div class="cl-sq"></div><div class="cl-txt">Seller purchased at a high mortgage rate</div></div>
+          <div class="cl-item"><div class="cl-sq"></div><div class="cl-txt">Pre-approval or proof of funds is ready</div></div>
+        </div>
+        <div class="cl-sec no-break">
+          <div class="cl-sec-h">When Making the Offer</div>
+          <div class="cl-item"><div class="cl-sq"></div><div class="cl-txt">Offer based on forward value, not comps</div></div>
+          <div class="cl-item"><div class="cl-sq"></div><div class="cl-txt">Documentation sent before or with offer</div></div>
+          <div class="cl-item"><div class="cl-sq"></div><div class="cl-txt">Offer letter is clear, respectful, professional</div></div>
+          <div class="cl-item"><div class="cl-sq"></div><div class="cl-txt">Offer within your genuine comfort zone</div></div>
+        </div>
+      </div>
+      <div>
+        <div class="cl-sec no-break">
+          <div class="cl-sec-h">During Negotiation</div>
+          <div class="cl-item"><div class="cl-sq"></div><div class="cl-txt">Stay calm after rejection — it's normal</div></div>
+          <div class="cl-item"><div class="cl-sq"></div><div class="cl-txt">Treat any counter as a green light</div></div>
+          <div class="cl-item"><div class="cl-sq"></div><div class="cl-txt">Don't chase — use silence as leverage</div></div>
+          <div class="cl-item"><div class="cl-sq"></div><div class="cl-txt">Reaffirm interest without raising offer</div></div>
+          <div class="cl-item"><div class="cl-sq"></div><div class="cl-txt">Never exceed your predetermined ceiling</div></div>
+        </div>
+        <div class="cl-sec no-break">
+          <div class="cl-sec-h">Seller Signals to Watch</div>
+          <div class="cl-item"><div class="cl-sq"></div><div class="cl-txt">Property is vacant or utilities off</div></div>
+          <div class="cl-item"><div class="cl-sq"></div><div class="cl-txt">Seller already accepted a paper loss</div></div>
+          <div class="cl-item"><div class="cl-sq"></div><div class="cl-txt">Timeline pressure (relocation, divorce)</div></div>
+          <div class="cl-item"><div class="cl-sq"></div><div class="cl-txt">Monthly costs exceed rental potential</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="closing">
+    <div class="cl-close-title">Negotiate with<br/><span>confidence.</span><br/>Close with clarity.</div>
+    <div class="cl-close-sub">The strategies in this guide are not about being aggressive — they're about being prepared, credible, and willing to walk away. Great deals are plentiful for those who can stay patient and detached.</div>
+    <div class="cl-disc">Disclaimer: This guide reflects personal experience and general educational content. It does not constitute financial, legal, or real estate advice. Every transaction is unique — consult with licensed professionals before making any purchase decisions. Past results are not indicative of future outcomes.</div>
+  </div>
+</div>
+
+</body>
+</html>
